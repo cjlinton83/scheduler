@@ -76,7 +76,7 @@ func (l List) ShowStats(time int) {
 	fmt.Println("Time:", time)
 }
 
-// ClearStats resets WorkingBurst and zeroes out Start and Finished.
+// ClearStats resets WorkingBurst, Start and Finished.
 func (l List) ClearStats() {
 	for i := 0; i < len(l); i++ {
 		l[i].WorkingBurst = l[i].Burst
