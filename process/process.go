@@ -80,8 +80,8 @@ func (l List) ShowStats(time int) {
 func (l List) ClearStats() {
 	for i := 0; i < len(l); i++ {
 		l[i].WorkingBurst = l[i].Burst
-		l[i].Start = 0
-		l[i].Finished = 0
+		l[i].Start = -1
+		l[i].Finished = -1
 	}
 }
 
