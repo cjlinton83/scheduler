@@ -24,22 +24,22 @@ func main() {
 func fcfs(newQ process.List) (process.List, int) {
 	totalTime := 0
 
-	arrivalQ := process.NewList()
+	readyQ := process.NewList()
 	runQ := process.NewList()
 	finishedQ := process.NewList()
 
 	newQ.ClearStats()
 
-	// initialize arrivalQ and sort by arrival time.
-	arrivalQ = append(arrivalQ, newQ...)
-	sort.SliceStable(arrivalQ, func(i, j int) bool {
-		return arrivalQ[i].Arrival < arrivalQ[j].Arrival
+	// initialize readyQ and sort by arrival time.
+	readyQ = append(readyQ, newQ...)
+	sort.SliceStable(readyQ, func(i, j int) bool {
+		return readyQ[i].Arrival < readyQ[j].Arrival
 	})
 
-	for !arrivalQ.IsEmpty() || !runQ.IsEmpty() {
-		if !arrivalQ.IsEmpty() {
-			if arrivalQ.Front().Arrival <= totalTime {
-				p := arrivalQ.PopFront()
+	for !readyQ.IsEmpty() || !runQ.IsEmpty() {
+		if !readyQ.IsEmpty() {
+			if readyQ.Front().Arrival <= totalTime {
+				p := readyQ.PopFront()
 				runQ.PushBack(p)
 				continue
 			}
@@ -60,22 +60,22 @@ func fcfs(newQ process.List) (process.List, int) {
 func sjf(newQ process.List) (process.List, int) {
 	totalTime := 0
 
-	arrivalQ := process.NewList()
+	readyQ := process.NewList()
 	runQ := process.NewList()
 	finishedQ := process.NewList()
 
 	newQ.ClearStats()
 
-	// initialize arrivalQ and sort by arrival time.
-	arrivalQ = append(arrivalQ, newQ...)
-	sort.SliceStable(arrivalQ, func(i, j int) bool {
-		return arrivalQ[i].Arrival < arrivalQ[j].Arrival
+	// initialize readyQ and sort by arrival time.
+	readyQ = append(readyQ, newQ...)
+	sort.SliceStable(readyQ, func(i, j int) bool {
+		return readyQ[i].Arrival < readyQ[j].Arrival
 	})
 
-	for !arrivalQ.IsEmpty() || !runQ.IsEmpty() {
-		if !arrivalQ.IsEmpty() {
-			if arrivalQ.Front().Arrival <= totalTime {
-				p := arrivalQ.PopFront()
+	for !readyQ.IsEmpty() || !runQ.IsEmpty() {
+		if !readyQ.IsEmpty() {
+			if readyQ.Front().Arrival <= totalTime {
+				p := readyQ.PopFront()
 				runQ.PushBack(p)
 				continue
 			}
