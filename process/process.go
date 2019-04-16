@@ -62,18 +62,33 @@ func (l List) ShowList() {
 		fmt.Printf("%d\t%d\t%d\t%d\n",
 			l[i].ID, l[i].Arrival, l[i].Burst, l[i].Priority)
 	}
+	fmt.Printf("Number of jobs: %d\n\n", len(l))
 }
 
-//ShowStats shows process statistics for processes in List.
-func (l List) ShowStats(time int) {
-	fmt.Println("ID\tWorkingBurst\tStart\tFinished")
+//ComputeAndShowStats shows process statistics for processes in List.
+func (l List) ComputeAndShowStats(time int, name string) {
+	throughput, turnaround, response := 0.0, 0.0, 0.0
+	numJobs := len(l)
 
-	for i := 0; i < len(l); i++ {
-		fmt.Printf("%d\t%d\t\t%d\t%d\n",
-			l[i].ID, l[i].WorkingBurst, l[i].Start, l[i].Finished)
+	fmt.Printf("Terminated jobs (%s)\n", name)
+	fmt.Println("ID\tArrival\tCompletion")
+
+	for i := 0; i < numJobs; i++ {
+		fmt.Printf("%d\t%d\t%d\n",
+			l[i].ID, l[i].Arrival, l[i].Finished)
+		turnaround += float64(l[i].Finished - l[i].Arrival)
+		response += float64(l[i].Start - l[i].Arrival)
 	}
 
-	fmt.Println("Time:", time)
+	throughput = float64(numJobs) / float64(time)
+	turnaround /= float64(numJobs)
+	response /= float64(numJobs)
+
+	fmt.Println("Run Stats:")
+	fmt.Printf("Throughput: %.2f\n", throughput)
+	fmt.Printf("Average turnaround time: %.2f\n", turnaround)
+	fmt.Printf("Average response time: %.2f\n", response)
+	fmt.Println()
 }
 
 // ClearStats resets WorkingBurst, Start and Finished.
